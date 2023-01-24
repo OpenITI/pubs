@@ -1,0 +1,15 @@
+name: Full Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-build-workflow:
+     uses: ./.github/workflows/buildPages.yml
+     secrets:
+       token: ${{secrets.ACTIONS_ACCESS}}
+  call-deploy-workflow:
+    needs: call-build-workflow
+    uses: ./.github/workflows/static.yml
